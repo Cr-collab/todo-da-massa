@@ -1,11 +1,10 @@
 import { useMemo } from 'react';
 import { Box, Tooltip, Typography, Paper, CircularProgress } from '@mui/material';
-import { eachDayOfInterval, subDays, format, startOfYear } from 'date-fns';
-import { ptBR } from 'date-fns/locale';
+import { eachDayOfInterval, subDays, format } from 'date-fns';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { collection, query, where } from 'firebase/firestore';
+import { collection } from 'firebase/firestore';
 import { db as firestoreDb } from '../../services/firebase';
-import { db, type ITask } from '../../db/db';
+import { type ITask } from '../../db/db';
 
 interface ActivityHeatmapProps {
   filterByTitle?: string;
@@ -37,7 +36,7 @@ export function ActivityHeatmap({ filterByTitle }: ActivityHeatmapProps) {
   const today = new Date();
   const startDate = subDays(today, 365); // Last year
 
-  const days = eachDayOfInterval({ start: startDate, end: today });
+
 
   const dailyCounts = useMemo(() => {
     const counts: Record<string, number> = {};

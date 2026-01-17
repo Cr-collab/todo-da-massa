@@ -80,7 +80,23 @@ export const db = {
                 return snap.docs.map(d => convertDates(d.data()) as ITask);
             }
         })
-    })
+    }),
+    bulkAdd: async (tasks: ITask[]) => {
+        const batch = writeBatch(firestoreDb);
+        tasks.forEach(task => {
+            const ref = doc(firestoreDb, 'tasks', task.id);
+            batch.set(ref, task);
+        });
+        await batch.commit();
+    },
+    bulkPut: async (tasks: ITask[]) => {
+        const batch = writeBatch(firestoreDb);
+        tasks.forEach(task => {
+            const ref = doc(firestoreDb, 'tasks', task.id);
+            batch.set(ref, task, { merge: true }); 
+        });
+        await batch.commit();
+    }
   },
   columns: {
       count: async () => {
@@ -97,8 +113,7 @@ export const db = {
       },
       orderBy: (field: string) => ({
           first: async (): Promise<IColumn | undefined> => {
-               // naive impl for 'first'
-               const q = query(collection(firestoreDb, 'columns')); // Firestore sorting is separate, assumes small data
+               const q = query(collection(firestoreDb, 'columns')); 
                const snap = await getDocs(q);
                const cols = snap.docs.map(d => d.data() as IColumn).sort((a: any, b: any) => a[field] - b[field]);
                return cols[0];

@@ -1,73 +1,70 @@
-# React + TypeScript + Vite
+# Todo da Massa 🚀
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Um gerenciador de tarefas estilo Kanban turbinado com Pomodoro, musica de fundo e estatísticas de produtividade.
 
-Currently, two official plugins are available:
+**Link do Projeto**: [Acesse aqui](https://Cr-collab.github.io/todo-da-massa/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Funcionalidades
 
-## React Compiler
+### 📋 Kanban Board
+-   **Organização Visual**: Divida suas tarefas em colunas (ex: A Fazer, Em Progresso, Concluído).
+-   **Drag & Drop**: Arraste tarefas entre as colunas facilmente.
+-   **WIP Limit Real**: O sistema avisa se você tentar focar em mais de uma coisa ao mesmo tempo.
+-   **Tarefas Automáticas**: configure templates de tarefas que se repetem automaticamente (ex: "Reunião Semanal" toda segunda).
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 🍅 Pomodoro Integrado
+-   **Timer de Foco**: Inicie um timer de 25min (ou personalizado) direto da tarefa.
+-   **Música de Fundo 🎵**: Cole qualquer link do YouTube (inclusive lives lofi) e o player toca em **loop infinito** enquanto você foca.
+    -   *Truque*: Cole links normais do YouTube, o sistema converte automaticamente para o formato "embed" correto!
+-   **Registro Automático**: Ao terminar um ciclo, a tarefa é movida para "Concluído" (se configurado) e o tempo é registrado.
 
-## Expanding the ESLint configuration
+### 📊 Estatísticas (Heatmap)
+-   **Contribuições**: Visualize so sua produtividade em um gráfico estilo GitHub (heatmap).
+-   **Histórico**: Veja quantas tarefas e pomodoros você completou em cada dia do ano.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ Tecnologias
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+-   **Frontend**: React, Vite, TypeScript
+-   **Design**: Material UI (MUI) com tema escuro (Dark Mode)
+-   **Banco de Dados**: Firebase Firestore (Realtime)
+-   **Drag & Drop**: @hello-pangea/dnd
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🚀 Como Rodar Localmente
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1.  Clone o repositório:
+    ```bash
+    git clone https://github.com/Cr-collab/todo-da-massa.git
+    cd todo-da-massa
+    ```
+
+2.  Instale as dependências:
+    ```bash
+    npm install
+    ```
+
+3.  Configure o Firebase:
+    -   Crie um projeto no [Firebase Console](https://console.firebase.google.com/).
+    -   Crie um arquivo `.env` na raiz com suas chaves:
+        ```
+        VITE_API_KEY=sua-api-key
+        VITE_AUTH_DOMAIN=seu-projeto.firebaseapp.com
+        VITE_PROJECT_ID=seu-projeto-id
+        VITE_STORAGE_BUCKET=seu-projeto.appspot.com
+        VITE_MESSAGING_SENDER_ID=seu-id
+        VITE_APP_ID=seu-app-id
+        ```
+
+4.  Rode o servidor de desenvolvimento:
+    ```bash
+    npm run dev
+    ```
+
+## 📦 Como Atualizar o Site
+
+Para publicar novas versões no GitHub Pages:
+
+```bash
+npm run deploy
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Isso irá criar o build otimizado e enviá-lo para a branch `gh-pages` automaticamente.

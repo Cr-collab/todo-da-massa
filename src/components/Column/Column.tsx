@@ -1,7 +1,7 @@
 import { Droppable } from '@hello-pangea/dnd';
-import { Paper, Typography, Box, Stack, Chip, CircularProgress } from '@mui/material';
+import { Paper, Typography, Box, Stack, Chip } from '@mui/material';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { collection, query, where, orderBy } from 'firebase/firestore';
+import { collection, query, where } from 'firebase/firestore';
 import { db as firestoreDb } from '../../services/firebase';
 import { type IColumn, type ITask } from '../../db/db';
 import { TaskCard } from '../TaskCard/TaskCard';
@@ -26,7 +26,7 @@ const convertDates = (data: any): any => {
 };
 
 export function Column({ column, onTaskClick, onStartPomodoro }: ColumnProps) {
-  const [tasksRaw, loading] = useCollectionData(
+  const [tasksRaw] = useCollectionData(
     query(
         collection(firestoreDb, 'tasks'), 
         where('columnId', '==', column.id)
